@@ -30,7 +30,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });
 
-const server = app.listen(8000, () => {
+const server = app.listen(process.env.PORT || 8000, () => {
 });
 
 const io = socket(server);
