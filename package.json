@@ -13,8 +13,7 @@
     "uuid": "^8.3.0"
   },
   "scripts": {
-    "postinstall": "cd client && yarn install && yarn build",
-    "start": "nodemon server.js"
-
+    "start": "nodemon server.js",
+    "build": "cd client && yarn install && yarn build"
   }
 }
