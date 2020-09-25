@@ -1,60 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const db = require('./../db');
-const socket = require('socket.io');
-
-router.route('/seats').get((req, res) => {
-    res.json(db.seats);
-});
-
-router.route('/seats/:id').get((req, res) => {
-    res.send(db.seats[req.params.id - 1])
-})
-
-router.route('/seats').post((req, res) => {
-    const { day, seat, client, email } = req.body;
-    const added = {
-        id: db.seats.length + 1,
-        day,
-        seat,
-        client,
-        email,
-    }
-    if(db.seats.some(item => item.day === day 
-        && item.seat === seat)) 
-    {
-        res.send({ message: "The slot is already taken..." });
-    }
-    else
-
-    db.seats.push(added)
-    req.io.emit('seatsUpdated', db.seats);
-    res.send({
-        message: 'OK'
-        
-    });
-})
-
-router.route('/seats/:id').put((req, res) => {
-    const { day, seat, client, email } = req.body;
-    const update = {
-        id: req.params.id,
-        day,
-        seat,
-        client,
-        email,
-    }
-    db.seats[req.params.id - 1] = update
-    res.send({
-        message: 'OK'
-    });
-})
-
-router.route('/seats/:id').delete((req, res) => {
-    db.seats.splice(req.params.id - 1, 1);
-    res.send({
-        message: 'OK'
-    });
-})
-
+const SeatController = require('../controllers/seats.controller');
+router.get('/seats', SeatController.getAll);
+router.get('/seats/random', SeatController.getRandom);
+router.get('/seats/:id', SeatController.getById);
+router.post('/seats', SeatController.createNew);
+router.put('/seats/:id', SeatController.updateById);
+router.delete('/seats/:id', SeatController.deleteById);
 module.exports = router;
