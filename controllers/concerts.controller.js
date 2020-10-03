@@ -110,7 +110,7 @@ exports.getAll = async (req, res) => {
     try {
       console.log(req.params.day)
       const day = await Concert.find({ day: req.params.day });
-      console.log(performer)
+      
       if (!day.length) res.status(404).json({ message: 'Not found' });
       else res.json(day);
     } catch (err) {
