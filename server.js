@@ -31,10 +31,14 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });
 
-
 // connects our backend code with the database
-mongoose.connect('mongodb+srv://slawomir:energy2000@cluster0.rqbyt.mongodb.net/NewWaveDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+// mongoose.connect('mongodb+srv://slawomir:energy2000@cluster0.rqbyt.mongodb.net/NewWaveDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
+// const db = mongoose.connection;
+
+const dbURI = process.env.NODE_ENV === 'production' ? 'mongodb+srv://slawomir:energy2000@cluster0.rqbyt.mongodb.net/NewWaveDB?retryWrites=true&w=majority' : 'mongodb://localhost:27017/NewWaveDB';
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
+
 db.once('open', () => {
   console.log('Connected to the database');
 });
@@ -55,3 +59,5 @@ app.use((req, res) => {
       message: 'Not found...'
   });
 })
+
+module.exports = server;
