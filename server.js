@@ -31,10 +31,6 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/build/index.html'));
 });
 
-// connects our backend code with the database
-// mongoose.connect('mongodb+srv://slawomir:energy2000@cluster0.rqbyt.mongodb.net/NewWaveDB?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true });
-// const db = mongoose.connection;
-
 const dbURI = process.env.NODE_ENV === 'production' ? 'mongodb+srv://slawomir:energy2000@cluster0.rqbyt.mongodb.net/NewWaveDB?retryWrites=true&w=majority' : 'mongodb://localhost:27017/NewWaveDB';
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
@@ -44,7 +40,7 @@ db.once('open', () => {
 });
 db.on('error', err => console.log('Error ' + err));
 
-const server = app.listen(process.env.PORT || 8000, () => {
+const server = app.listen(process.env.PORT || 8001, () => {
   console.log('Server is running on port 8000');
 });
 
