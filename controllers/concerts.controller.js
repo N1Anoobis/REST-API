@@ -46,7 +46,7 @@ exports.getAll = async (req, res) => {
   exports.createNew = async (req, res) => {
     try {
       const { day, Concert, client, email} = req.body;
-      ({ author: sanitize(author), text: sanitize(text) });
+    
       const newConcert = new Concert({ day:sanitize(day), Concert:sanitize(Concert), client:sanitize(client), email:sanitize(email) });
       await newConcert.save();
       res.json({ message: 'OK' });
