@@ -17,9 +17,9 @@
     "mocha": "^8.1.3",
     "mongo-sanitize": "1.0.1",
     "mongoose": "^5.10.7",
-    "nodemon": "^2.0.4",
+    "nodemon": "^2.0.17",
     "onchange": "^7.0.2",
-    "snyk": "^1.410.0",
+    "snyk": "^1.680.0",
     "socket.io": "^2.3.0",
     "uuid": "^8.3.0"
   },
